@@ -1,21 +1,21 @@
-CODE_CHANGES = getGitChanges()
 pipeline{
     agent any
-    tools{
-        maven 'maven-3.9' // have to give the name of maven installation if u wanna use 'mvn' command
+    parameters {
+        // these are the parameters that user should provide while triggering the pipeline
+        string(name: 'VERSION', defaultValue: '', description: 'version to deploy on prod')
+        choice(name: 'choices', choices: ['1.1.0', '1.1.1', '1.1.2'])
+        booleanParam(name: 'executeTests', defaultValue: true, description: '')
     }
     stages{
         stage("build"){
             steps{
                 echo "building the application"
-                echo "building version ${NEW_VERSION}"
             }
         }
         stage("test"){
-            when { // just like if else
-            // this stage only executed if current branch is "dev"
+            when{
                 expression {
-                    BRANCH_NAME == 'dev' || BRANCH_NAME == 'main'
+                    params.executeTests // this stage executed if executeTests is true
                 }
             }
             steps{
@@ -25,12 +25,7 @@ pipeline{
         stage("deploy"){
             steps{
                 echo "deploying the application"
-                withCredentials([
-                    usernamePassword(credentials: 'server-credentials', usernameVariable: USER, passwordVariable: PWD) // limited to this scope username & password will
-                    // will be stored in USER & PWD variable
-                ]) {
-                        sh "some script ${USER} ${PWD}"
-                }
+                echo "deploying version ${params.VERSION}"
             }
         }
     }
