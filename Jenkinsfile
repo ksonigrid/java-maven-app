@@ -30,14 +30,14 @@ pipeline{
         }
     }
 }
-post{
-    success {
-        // executed when build success
-    }
-    always {
-        // always executed regardless of build failure/success
-    }
-    failure {
-        // executed when build failure
-    }
-}
+// post{
+//     success {
+//         // executed when build success
+//     }
+//     always {
+//         // always executed regardless of build failure/success
+//     }
+//     failure {
+//         // executed when build failure
+//     }
+// }
