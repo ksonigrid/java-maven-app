@@ -7,16 +7,13 @@ def BuildJar(){
 
 def BuildImage(){
     echo "building images"
-    withCredentials([usernamePassword(credentialsId: "Dockerhub PAT for jenkins", paswordVariable: 
-
-        sh('docker build . -t ksonigrid/java-mavenrepo:2.0')
-        sh('echo ${PASS} | docker login -u ${USER} --password-stdin')
-        sh('docker push ksonigrid/java-mavenrepo:2.0')
-        
-        
-    )])
-    
-
+    withCredentials([usernamePassword(credentialsId: "Dockerhub PAT for jenkins", paswordVariable: 'USER', usernameVariable: 'PASS')]) {
+        sh """
+            docker build . -t ksonigrid/java-mavenrepo:2.0
+            echo ${PASS} | docker login -u ${USER} --password-stdin
+            docker push ksonigrid/java-mavenrepo:2.0
+        """
+    }
 }
 
 def DeployApp(){
