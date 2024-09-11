@@ -1,9 +1,8 @@
 CODE_CHANGES = getGitChanges()
 pipeline{
     agent any
-    environment { // define environment variables like this
-        NEW_VERSION = '1.3.0'
-        SERVER_CREDENTIALS = credentials('server-credentials')
+    tools{
+        maven 'maven-3.9' // have to give the name of maven installation if u wanna use 'mvn' command
     }
     stages{
         stage("build"){
