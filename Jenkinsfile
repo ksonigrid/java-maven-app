@@ -37,9 +37,17 @@ pipeline{
             }
         }
         stage("deploy"){
+            input{
+                message "select the environment to deploy to"
+                ok "Done"
+                parameters { // availbale to only this scope
+                    choice(name: 'ENV', choices: ['dev', 'staging', 'prod'], description: '')
+                }
+            }
             steps{
                script {
                     gv.DeployApp()
+                    echo "deploying to ${ENV}"
                }
             }
         }
