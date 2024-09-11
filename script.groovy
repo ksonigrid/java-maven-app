@@ -1,19 +1,17 @@
-def buildJar() {
-    echo "building the application..."
-    sh 'mvn package'
-} 
+// All environment variables available in Jenkinsfile are available in this file
 
-def buildImage() {
-    echo "building the docker image..."
-    withCredentials([usernamePassword(credentialsId: 'docker-hub-repo', passwordVariable: 'PASS', usernameVariable: 'USER')]) {
-        sh 'docker build -t nanajanashia/demo-app:jma-2.0 .'
-        sh "echo $PASS | docker login -u $USER --password-stdin"
-        sh 'docker push nanajanashia/demo-app:jma-2.0'
-    }
-} 
+def BuildApp(){
+    echo "buiding the application"
+}
 
-def deployApp() {
-    echo 'deploying the application...'
-} 
+def TestApp(){
+    echo "testing the application"
+}
+
+def DeployApp(){
+    echo "deploying the application"
+    echo "version of the application ${params.VERSION}"
+}
 
 return this
+
