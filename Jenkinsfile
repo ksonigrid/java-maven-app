@@ -23,10 +23,13 @@ pipeline{
                 }
             }
         }
-        stage("build image"){
+        stage("build image and push"){
             steps{
                 script {
                     BuildImage('ksonigrid/java-mavenrepo:3.0')
+                    dockerLogin()
+                    dockerPush('ksonigrid/java-mavenrepo:3.0')
+                    sh "checking trigger"
                 }
             }
         }
