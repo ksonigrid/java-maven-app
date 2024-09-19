@@ -29,6 +29,7 @@ pipeline{
                     BuildImage('ksonigrid/java-mavenrepo:3.0')
                     dockerLogin()
                     dockerPush('ksonigrid/java-mavenrepo:3.0')
+                    echo "hi"
                 }
             }
         }
