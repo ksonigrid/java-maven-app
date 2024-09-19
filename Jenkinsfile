@@ -26,7 +26,7 @@ pipeline{
         stage("build image"){
             steps{
                 script {
-                    BuildImage 'ksonigrid/java-mavenrepo:3.0'
+                    BuildImage('ksonigrid/java-mavenrepo:3.0')
                 }
             }
         }
