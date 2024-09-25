@@ -1,5 +1,5 @@
 // All environment variables available in Jenkinsfile are available in this file
-def increment_version() {
+def IncrementVersion() {
     echo "incrementing the application version....."
     sh '
         mvn build-helper:parse-version versions:set \

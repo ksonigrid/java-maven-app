@@ -16,6 +16,13 @@ pipeline{
             }
             
         }
+        stage("version increment"){
+            steps{
+                script{
+                    gv.IncrementVersion()
+                }
+            }
+        }
         stage("build jar"){
             steps{
                 script {
