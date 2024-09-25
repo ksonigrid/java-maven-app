@@ -25,6 +25,12 @@ def BuildImage(){
 
 def DeployApp(){
     echo "deploying the application"
+    def dockerCmd = 'docker run -p 3080:3080 -d ksonigrid/java-mavenrepo:1.0'
+    sshagent(['ec2-ssh']) {
+        // some block
+        sh "ssh -o StrictHostKeyChecking=no ubuntu@ec2-3-107-160-161.ap-southeast-2.compute.amazonaws.com ${dockerCmd}"
+
+    }
 }
 
 return this
